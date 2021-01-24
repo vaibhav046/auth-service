@@ -11,4 +11,18 @@ module.exports = (app) => {
         }
         res.send(resp).status(200);
     });
+
+    app.post('/api/signup', async (req, res) => {
+        try {
+            let body = req.body;
+            let response = await userService.signup(body);
+            if (response)
+                res.send(response).status(200);
+            else
+                throw new Error('Service unavailable');
+        }
+        catch (err) {
+            res.send(err).status(500);
+        }
+    });
 }

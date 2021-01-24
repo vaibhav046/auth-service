@@ -45,7 +45,7 @@ const getAllActivePermissionsPerUser = async (id, email) => {
 }
 
 const createNewPermissions = async (body, type) => {
-    let response = null;
+    let response = {};
     let { email, role } = body;
     try {
         let role_id = await RoleService.getRoleIdByUser(email, role);
@@ -60,12 +60,13 @@ const createNewPermissions = async (body, type) => {
             .query(`INSERT INTO permissions(type,active,role_id,user_id) VALUES(@type,@active,@role_id,@user_id)`);
         if (result && result.rowsAffected && result.rowsAffected.length > 0) {
             response = {
-                type: type,
-                role_id: role_id
-            }
+                permission: newPermission.type,
+                role_id: newPermission.role_id
+            };
         } else {
             throw new Error('no records updated');
         }
+
     } catch (err) {
         console.log(err);
     }

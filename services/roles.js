@@ -1,15 +1,15 @@
 
 const sql = require('mssql');
 const Roles = require('../models/roles');
-const Permissions = require('../models/permissions');
 const poolPromise = require('../config/sql-connector');
 const userService = require('./users');
 const permissionService = require('./permissions');
 
-const getAllRolesByUser = async (email, user_id = null) => {
+const getAllRolesByUser = async (email, userId = null) => {
     let role_id = null;
+    console.log(email);
     try {
-        const user_id = user_id ? user_id : await userService.getUserIdByemail(email);
+        const user_id = userId ? userId : await userService.getUserIdByemail(email);
         const pool = await poolPromise
         const result = await pool.request()
             .input('user_id', sql.Int, user_id)
@@ -35,7 +35,7 @@ const getRoleIdByUser = async (email, role) => {
             .input('role', sql.VarChar(50), role)
             .input('user_id', sql.Int, user_id)
             .query(`SELECT id from roles where role=@role AND user_id=@user_id AND active=1`);
-        if (result && result.recordset && result.recordset.length > 0 && result.recordset[0].id) {
+        if (result && result.recordset && result.recordset.length > 0) {
             role_id = result.recordset[0].id;
         }
         else {
@@ -89,7 +89,7 @@ const createRoleForUserWithPermissions = async (email, body) => {
                     throw new Error('transaction failed');
                 }
             } else {
-                response = `updated ${result.rowsAffected} records `
+                response = result.rowsAffected
             }
         } else {
             throw new Error('no records updated');
