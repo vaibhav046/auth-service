@@ -13,4 +13,4 @@ metadata:
           - name: localdemoacr
             image: vaibhavauthservice
             ports:
-              - containerPort: 3000
+              - containerPort: 5001
