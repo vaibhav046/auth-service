@@ -23,11 +23,6 @@ spec:
           image: localdemoacr.azurecr.io/vaibhavauthservice
           ports:
             - containerPort: 5001
-          resources:
-          requests:
-            cpu: 250m
-          limits:
-            cpu: 500m
 ---
 apiVersion: v1
 kind: Service
