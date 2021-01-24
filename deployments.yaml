@@ -1,16 +1,25 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: auth-service
-  spec:
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          app: nodejs
-      spec:
-        containers:
-          - name: localdemoacr
-            image: vaibhavauthservice
-            ports:
-              - containerPort: 5001
+  namespace: scr
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 180
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: localdemoacr.azurecr.io/vaibhavauthservice
+          ports:
+            - containerPort: 5001
