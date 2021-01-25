@@ -16,8 +16,12 @@ module.exports = (app) => {
         try {
             let body = req.body;
             let response = await userService.signup(body);
-            if (response)
-                res.send(response).status(200);
+            if (response) {
+                const resp = {
+                    token: jwt.sign(response),
+                }
+                res.send(resp).status(200);
+            }
             else
                 throw new Error('Service unavailable');
         }

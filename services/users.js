@@ -53,7 +53,6 @@ const loginRequests = async (body) => {
                     roles.add(x.role);
                 });
                 response = { email: result.recordset[0].email, upn: result.recordset[0].email, username: result.recordset[0].username, permissions: [...permissions], roles: [...roles] }
-                console.log("response", response);
             }
         }
         else if (username && password) {
@@ -107,9 +106,9 @@ const signup = async (body) => {
                 if (affectedRoles) {
                     let payload = { email: newUser.email, role: 'user' };
                     sf.setup("permissionService", ["createNewPermissions", payload, 'read'])
-                    let resp = sf.execute();
+                    let resp = await sf.execute();
                     if (resp) {
-                        response = { email, username };
+                        response = await loginRequests({ email, password });
                     }
                 }
             } else {
