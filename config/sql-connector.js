@@ -11,6 +11,9 @@ const config = {
     }
 }
 let poolPromise = null;
+/**
+ *   Sql connector setup function.
+**/
 setup = async () => {
     return poolPromise = await new sql.ConnectionPool(config)
         .connect()

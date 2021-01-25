@@ -1,3 +1,8 @@
+/**
+ * Roles Model.
+ *
+ * @class Roles
+ */
 class Roles {
     constructor(role, active = true, user_id) {
         this.role = role;

@@ -5,6 +5,13 @@ class Services {
         this.func = null;
     }
 
+    /**
+     * Sets up the servicetype, function and funtion params.
+     *
+     * @param {*} serviceType
+     * @param {*} args
+     * @memberof Services
+     */
     setup(serviceType, args) {
         this.serviceType = serviceType;
         this.func = args[0];
@@ -14,6 +21,12 @@ class Services {
         }
     }
 
+    /**
+     * Executor factory function.
+     *
+     * @returns response
+     * @memberof Services
+     */
     async execute() {
         let response = null;
         switch (this.serviceType) {

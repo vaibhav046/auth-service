@@ -9,14 +9,11 @@ const publicKEY = fs.readFileSync(path.join(__dirname, '..', '/signing-config/pu
 const $Options = require('../signing-config/issuers-config');
 
 module.exports = {
+    /**
+     * signing JWT token.
+     * @param {*} payload 
+     */
     sign: (payload) => {
-        /*
-            sOptions = {
-                issuer: "Authorizaxtion/Resource/This server",
-                subject: "iam@user.me", 
-                audience: "Client_Identity" // this should be provided by client
-            }
-        */
 
         // Token signing options
         var signOptions = {
@@ -29,14 +26,11 @@ module.exports = {
         return jwt.sign(payload, privateKEY, signOptions);
     },
 
+    /**
+     * Verify JWT token.
+     * @param {*} token 
+     */
     verify: (token) => {
-        /*
-            vOption = {
-                issuer: "Authorization/Resource/This server",
-                subject: "iam@user.me", 
-                audience: "Client_Identity" // this should be provided by client
-            }		
-        */
         var verifyOptions = {
             issuer: $Option.issuer,
             subject: $Option.subject,
@@ -51,6 +45,10 @@ module.exports = {
         }
     },
 
+    /**
+     * Decodes the JWT token.
+     * @param {*} token 
+     */
     decode: (token) => {
         return jwt.decode(token, { complete: true });
     }

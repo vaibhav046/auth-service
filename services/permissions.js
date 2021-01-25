@@ -5,6 +5,11 @@ const RoleService = require('./roles');
 const UserService = require('./users');
 const poolPromise = require('../config/sql-connector');
 
+/**
+ * Gets all active permissions.
+ *
+ * @returns response
+ */
 const getAllPermissions = async () => {
     let response = null;
     try {
@@ -23,6 +28,13 @@ const getAllPermissions = async () => {
     return response;
 }
 
+/**
+ * Gets all active permissions per user email.
+ *
+ * @param {*} id
+ * @param {*} email
+ * @returns response
+ */
 const getAllActivePermissionsPerUser = async (id, email) => {
     let response = null;
     try {
@@ -44,6 +56,13 @@ const getAllActivePermissionsPerUser = async (id, email) => {
     return response;
 }
 
+/**
+ * create new permissions for user email
+ *
+ * @param {*} body {email, role} 
+ * @param {*} type
+ * @returns response
+ */
 const createNewPermissions = async (body, type) => {
     let response = {};
     let { email, role } = body;
@@ -73,6 +92,12 @@ const createNewPermissions = async (body, type) => {
     return response;
 }
 
+/**
+ * Private method gets permission per user id.
+ *
+ * @param {*} user_id
+ * @returns permissions
+ */
 const _getPermissionsPerUserId = async (user_id) => {
     let response = null;
     try {
@@ -92,6 +117,13 @@ const _getPermissionsPerUserId = async (user_id) => {
     return response;
 }
 
+/**
+ * Maps new roles to available permission per user id.
+ *
+ * @param {*} role_id
+ * @param {*} payload
+ * @returns mapped{boolean}
+ */
 const mapNewRolePermission = async (role_id, payload) => {
     let mapped = false;
     let { type, active, user_id } = payload;

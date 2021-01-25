@@ -5,6 +5,12 @@ const Users = require('../models/users');
 let serviceFactory = require('./services-factory');
 let sf = new serviceFactory();
 
+/**
+ * Gets user id by email.
+ *
+ * @param {*} email
+ * @returns user_id
+ */
 const getUserIdByemail = async (email) => {
     let user_id = null;
     try {
@@ -24,6 +30,12 @@ const getUserIdByemail = async (email) => {
     return user_id;
 }
 
+/**
+ * handles login request.
+ *
+ * @param {*} body{ email, username/password }
+ * @returns response
+ */
 const loginRequests = async (body) => {
     let response = null;
     let { email, username, password } = body;
@@ -67,6 +79,13 @@ const loginRequests = async (body) => {
     }
     return response;
 }
+
+/**
+ * signs up new users.
+ *
+ * @param {*} body{ email, username, password }
+ * @returns response
+ */
 const signup = async (body) => {
     let response = null;
     let { email, username, password } = body;

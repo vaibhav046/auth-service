@@ -5,6 +5,13 @@ const poolPromise = require('../config/sql-connector');
 const userService = require('./users');
 const permissionService = require('./permissions');
 
+/**
+ * gets all roles by user email.
+ *
+ * @param {*} email
+ * @param {*} [userId=null]
+ * @returns role_id
+ */
 const getAllRolesByUser = async (email, userId = null) => {
     let role_id = null;
     console.log(email);
@@ -26,6 +33,13 @@ const getAllRolesByUser = async (email, userId = null) => {
     return role_id;
 }
 
+/**
+ * gets specific role id per user and role.
+ *
+ * @param {*} email
+ * @param {*} role
+ * @returns role_id
+ */
 const getRoleIdByUser = async (email, role) => {
     let role_id = null;
     try {
@@ -47,6 +61,12 @@ const getRoleIdByUser = async (email, role) => {
     return role_id;
 }
 
+/**
+ * private method to get the latest inserted record in Roles table.
+ *
+ * @param {*} user_id
+ * @returns id
+ */
 const _getLastInsertedRecordfForUser = async (user_id) => {
     let id = null;
     try {
@@ -64,6 +84,13 @@ const _getLastInsertedRecordfForUser = async (user_id) => {
     return id;
 }
 
+/**
+ * create role for user email with permissions.
+ *
+ * @param {*} email
+ * @param {*} body { role, permissions }
+ * @returns response
+ */
 const createRoleForUserWithPermissions = async (email, body) => {
     let { role, permissions } = body;
     let response = null;
@@ -100,6 +127,13 @@ const createRoleForUserWithPermissions = async (email, body) => {
     return response;
 }
 
+/**
+ * creates Roles for user id.
+ *
+ * @param {*} user_id
+ * @param {*} body [{role}]
+ * @returns
+ */
 const createRolesPerUser = async (user_id, body) => {
     let response = null;
     let affectedRows = 0;

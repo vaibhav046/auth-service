@@ -1,3 +1,8 @@
+/**
+ * Permissions Model.
+ *
+ * @class Permissions
+ */
 class Permissions {
     constructor(type, active = true, role_id, user_id) {
         this.type = type;
