@@ -79,6 +79,11 @@ $ npm install
 # Run the project
 $ npm start
 
+# Create RSA signing keys.
+
+ $ visit http://travistidwell.com/blog/2013/09/06/an-online-rsa-public-and-private-key-generator/
+ $ cp ./${private.key} ./signing-config/ && cp ./${public.key} ./signing-config/
+
 # The server will initialize in the <http://localhost:5001>
 ```
 
